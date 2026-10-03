@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
     <application
-        android:label="LockApp"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        <!-- الباسورد (Hash) لـ 12345678 -->
-        <meta-data
-            android:name="lock_password_hash"
-            android:value="154d7f6c50d3f70973b1d1ef47059c4acc6bf62e7727693ab22766ffeb5ed83e"/>
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
 
         <activity
             android:name=".MainActivity"
@@ -18,7 +11,8 @@
             android:launchMode="singleTask"
             android:lockTaskMode="if_whitelisted"
             android:showWhenLocked="true"
-            android:turnScreenOn="true">
+            android:turnScreenOn="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -38,5 +32,18 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
             </intent-filter>
         </receiver>
+
+        <!-- وضع احتياطي لو التطبيق مش Device Owner -->
+        <service
+            android:name=".LockAccessibilityService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config"/>
+        </service>
     </application>
 </manifest>

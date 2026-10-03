@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LockApp</string>
+    <string name="a11y_desc">يمنع الخروج من شاشة القفل (الوضع الاحتياطي)</string>
+</resources>
